@@ -1,9 +1,10 @@
-import 'package:w8_refactor/services/location_service.dart';
+import 'package:provider/provider.dart';
+import 'package:w8_refactor/data/repositories/location/location_repository_mock.dart';
 import 'package:w8_refactor/ui/widgets/display/bla_divider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/ride/locations.dart';
-import '../../theme/theme.dart';
+import '../../../../model/ride/locations.dart';
+import '../../../theme/theme.dart';
 
 ///
 /// A  Location Picker is a view to pick a Location:
@@ -50,7 +51,11 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
     if (currentSearchText.length < 2) {
       return [];
     }
-    return LocationsService.availableLocations
+
+    LocationRepositoryMock locationRepositoryMock = context
+        .read<LocationRepositoryMock>();
+    List<Location> locations = locationRepositoryMock.getAllLocations();
+    return locations
         .where(
           (location) => location.name.toUpperCase().contains(
             currentSearchText.toUpperCase(),

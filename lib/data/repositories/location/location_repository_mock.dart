@@ -6,7 +6,7 @@ class LocationRepositoryMock implements LocationRepository {
   List<Location> locations = [];
 
   @override
-  Future<List<Location>> getAllLocations() async {
+  List<Location> getAllLocations()  {
     locations = fakeLocations;
     if (locations.isEmpty) {
       throw Exception("Location is Empty");
